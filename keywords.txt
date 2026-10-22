@@ -1,0 +1,16 @@
+#######################################
+# Syntax Coloring Map for wifi_connectapp
+#######################################
+
+#######################################
+# Data types (KEYWORD1)
+AppWifiProv	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+eraseNVS	KEYWORD2
+startWifi	KEYWORD2
+SysProvEvent	KEYWORD2
+######################################
+# Constants (LITERAL1)
+#######################################
+wifi_connectapp_VERSION	LITERAL1
