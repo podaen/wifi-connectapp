@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/wifi-connectapp.sln
+/wifi-connectapp.vcxitems
+/wifi-connectapp.vcxitems.filters
