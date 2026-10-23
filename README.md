@@ -10,7 +10,7 @@ Your ESP32 needs the name (SSID) and password of your home Wi-Fi network. Instea
 
 ## The app screen
 
-![ESP SoftAP Prov app start screen. Tap ìProvision New Deviceî to begin setting up an ESP32.](Screenshot%202026-10-23%20153052.png)
+![ESP SoftAP Prov app start screen. Tap ‚ÄúProvision New Device‚Äù to begin setting up an ESP32.](doc/Screenshot%202026-10-23%20153052.png)
 
 The pictured screen is the app's starting page. Tap **Provision New Device** when your ESP32 is powered on and running a sketch that calls `startWifi()`.
 
@@ -58,7 +58,7 @@ Open the Serial Monitor at **115200 baud** to see provisioning and connection me
 
 ## Configuration in this library
 
-The current defaults are in [`src/wifi_connectapp.cpp`](../src/wifi_connectapp.cpp):
+The current defaults are in [`src/wifi_connectapp.cpp`](src/wifi_connectapp.cpp):
 
 | Setting | Current value | Purpose |
 | --- | --- | --- |
