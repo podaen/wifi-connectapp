@@ -12,6 +12,14 @@
 
 TestWifiProv Prov;
 
+void waitForSerial(unsigned long timeout_millis) {
+	unsigned long start = millis();
+	while (!Serial) {
+		if (millis() - start > timeout_millis)
+			break;
+	}
+}
+
 void setup() {
 	Serial.begin(115200);
 	waitForSerial(5000);
@@ -31,10 +39,4 @@ void setup() {
 void loop() {
 	delay(1000);
 }
-void waitForSerial(unsigned long timeout_millis) {
-	unsigned long start = millis();
-	while (!Serial) {
-		if (millis() - start > timeout_millis)
-			break;
-	}
-}
+
