@@ -1,6 +1,6 @@
-# Connect an ESP32 to Wi-Fi with the ESP SoftAP Prov app
+# ESP32 WiFi Connect: Wi-Fi Provisioning with the ESP SoftAP Prov App
 
-An Arduino library for ESP32 boards that makes it easy to connect to the wifi network with the official ESP SoftAP prov app. The app helps to give the device the wifi credentials and stores it to the ESP32 memory. All esp arduino supported boards are supported with this library too.
+`wifi_connectapp` is an Arduino library for ESP32 Wi-Fi connection and Wi-Fi provisioning. It lets you connect an ESP32 to a wireless network using the official ESP SoftAP Prov app. Enter your Wi-Fi name (SSID) and password in the app; the app sends them to the ESP32, which stores the credentials in memory. It supports ESP32 boards supported by the Arduino-ESP32 core.
 
 This guide shows the simple setup flow for the `wifi_connectapp` Arduino library. It follows the idea of Espressif's [WiFiProv example](https://github.com/espressif/arduino-esp32/tree/master/libraries/WiFiProv/examples/WiFiProv), with the key steps explained in plain language.
 
@@ -76,6 +76,3 @@ This library starts provisioning over **SoftAP** and uses the Arduino-ESP32 `WiF
 - To clear stored network settings and try setup again, call `wifi_connectapp::eraseNVS()` from your sketch, then restart the ESP32. Erasing NVS clears saved settings, so use it only when you want a fresh setup.
 
 For the lower-level Espressif example and API details, see [Provisioning for Arduino (WiFiProv)](https://github.com/espressif/arduino-esp32/tree/master/libraries/WiFiProv/examples/WiFiProv).
-
-
-
