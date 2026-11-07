@@ -37,7 +37,7 @@ public:
 	//void deiniWifi();
 
 	static void eraseNVS();
-	void startWifi();
+	void startWifi();// (bool bluedroid_deinit);
 	static void SysProvEvent(arduino_event_t* sys_event);
 	//void SysProvEvent(arduino_event_t* sys_event);
 	bool testWifi(void);

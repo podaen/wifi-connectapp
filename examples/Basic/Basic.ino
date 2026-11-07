@@ -23,8 +23,10 @@ void waitForSerial(unsigned long timeout_millis) {
 void setup() {
 	Serial.begin(115200);
 	waitForSerial(5000);
+
 	//Prov.eraseNVS();//erase credentials and etcetera
-	delay(5000);
+	//delay(5000);
+
 	Prov.startWifi();
 
 	// Wait until the provisioning flow has connected the ESP32 to Wi-Fi.

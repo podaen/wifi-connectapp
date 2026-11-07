@@ -6,19 +6,25 @@
 */
 
 #include "wifi_connectapp.h"
-
+#ifndef NETWORK_PROV_SECURITY
+#define NETWORK_PROV_SECURITY NETWORK_PROV_SECURITY_1 //has to stand before WiFiProv.h
+#endif // !NETWORK_PROV_SECURITY
 #include "WiFiProv.h"
 #include <Arduino.h>
 #include "nvs_flash.h"
+//#include "esp_bt.h"
+//#include "esp_bluedroid_api.h"
+
 
 #if CONFIG_ESP_HOSTED_ENABLED
 #error "WiFiProv is only supported in SoCs with native Wi-Fi support"
 #endif
 
 // Ensure a security level is defined
-#if defined(CONFIG_ESP_PROTOCOMM_SUPPORT_SECURITY_VERSION_1)
-#define NETWORK_PROV_SECURITY NETWORK_PROV_SECURITY_1//for android app
-#endif
+//#if defined(CONFIG_ESP_PROTOCOMM_SUPPORT_SECURITY_VERSION_1)
+//
+//#define NETWORK_PROV_SECURITY NETWORK_PROV_SECURITY_1//for android app
+//#endif
 
 const char* service_name = "my_device";//the name of the wifi network
 const char* service_key = "password";//this is the password for the provisioning service. It is used to secure the communication between the device and the provisioning application. The service key should be kept secret and not shared publicly.
@@ -26,6 +32,24 @@ const char* pop = "abcd1234";//this is the next step to secure the provisioning 
 bool reset_provisioned = true;
 
 //namespace {
+
+// #include "esp_bt_main.h"
+//void disableBluetoothCompletley() {
+//    // Disable Bluetooth to free up memory and avoid conflicts with Wi-Fi provisioning
+//    // This is especially important if you are not using Bluetooth in your application
+//	// it is not possible to disable bluetooth before the code is uploaded in the preconfig sdkconfig.h, so it doesn't save iram before the code is uploaded
+//    #if (defined(CONFIG_BLUEDROID_ENABLED) || defined(CONFIG_NIMBLE_ENABLED)) && __has_include("esp_bt.h")
+//        esp_err_t ret = esp_bluedroid_disable();
+//        if (ret == ESP_OK) {
+//            ret = esp_bluedroid_deinit();
+//            if (ret != ESP_OK) {
+//                Serial.println("Failed to deinitialize Bluedroid");
+//            }
+//        } else {
+//            Serial.println("Failed to disable Bluedroid");
+//        }
+//    #endif
+//}
 
 void wifi_connectapp::SysProvEvent(arduino_event_t* sys_event)
 {
@@ -108,15 +132,20 @@ void wifi_connectapp::SysProvEvent(arduino_event_t* sys_event)
 //    WiFi.mode(WIFI_OFF);//espWiFiStop
 //    //eraseNVS();//erase credentials and etcetera
 //}
-void wifi_connectapp::startWifi() {
+void wifi_connectapp::startWifi(){//(bool bluedroid_deinit=false) {
     Serial.println("login to WiFi");
     //eraseNVS();//erase credentials and etcetera
+ //   if (bluedroid_deinit) {
+ //       disableBluetoothCompletley();
+	//}
     delay(100);
     WiFi.onEvent(&wifi_connectapp::SysProvEvent);
     //WiFi.onEvent(SysProvEvent);
     WiFi.setAutoReconnect(true);
     Serial.println("Begin Provisioning using Soft AP");
-    WiFiProv.beginProvision(NETWORK_PROV_SCHEME_SOFTAP, NETWORK_PROV_SCHEME_HANDLER_NONE, NETWORK_PROV_SECURITY, pop, service_name, service_key);
+    //WiFiProv.beginProvision(NETWORK_PROV_SCHEME_SOFTAP, NETWORK_PROV_SCHEME_HANDLER_NONE, NETWORK_PROV_SECURITY, pop, service_name, service_key);
+    WiFiProv.beginProvision(NETWORK_PROV_SCHEME_SOFTAP, NETWORK_PROV_SCHEME_HANDLER_NONE, NETWORK_PROV_SECURITY, pop, service_name, service_key);// not sure about NETWORK_PROV_SCHEME_HANDLER_FREE_BTDM (
+       
     //Serial.print("Security: ");
     //Serial.println(NETWORK_PROV_SECURITY);
 
