@@ -86,6 +86,7 @@ void wifi_connectapp::SysProvEvent(arduino_event_t* sys_event)
         break;
     case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
         Serial.println("\nDisconnected. Connecting to the AP again... ");
+        WiFi.reconnect();
         break;
     case ARDUINO_EVENT_PROV_START:
         Serial.println("\nProvisioning started\nGive Credentials of your access point using \" Android app \"");
@@ -107,8 +108,8 @@ void wifi_connectapp::SysProvEvent(arduino_event_t* sys_event)
         }
         else {
             Serial.println("\nWi-Fi AP not found....Add API \" nvs_flash_erase() \" before beginProvision()");
-            wifi_connectapp::eraseNVS();
-            ESP.restart();
+            //wifi_connectapp::eraseNVS();
+            //ESP.restart();
         }
         break;
     }
@@ -139,16 +140,10 @@ void wifi_connectapp::startWifi(){//(bool bluedroid_deinit=false) {
  //       disableBluetoothCompletley();
 	//}
     delay(100);
-    WiFi.onEvent(&wifi_connectapp::SysProvEvent);
-    //WiFi.onEvent(SysProvEvent);
     WiFi.setAutoReconnect(true);
+    WiFi.onEvent(&wifi_connectapp::SysProvEvent);
     Serial.println("Begin Provisioning using Soft AP");
-    //WiFiProv.beginProvision(NETWORK_PROV_SCHEME_SOFTAP, NETWORK_PROV_SCHEME_HANDLER_NONE, NETWORK_PROV_SECURITY, pop, service_name, service_key);
     WiFiProv.beginProvision(NETWORK_PROV_SCHEME_SOFTAP, NETWORK_PROV_SCHEME_HANDLER_NONE, NETWORK_PROV_SECURITY, pop, service_name, service_key);// not sure about NETWORK_PROV_SCHEME_HANDLER_FREE_BTDM (
-       
-    //Serial.print("Security: ");
-    //Serial.println(NETWORK_PROV_SECURITY);
-
 }
 /*ERASE FLASH SETTINGS*/
 void wifi_connectapp::eraseNVS() {
