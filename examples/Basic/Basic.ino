@@ -10,7 +10,7 @@
 #include <WiFi.h>
 #include "nvs_flash.h"
 
-TestWifiProv Prov;
+wifi_connectapp Prov;
 
 void waitForSerial(unsigned long timeout_millis) {
 	unsigned long start = millis();

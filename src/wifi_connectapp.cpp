@@ -73,20 +73,17 @@ void wifi_connectapp::SysProvEvent(arduino_event_t* sys_event)
         //case ARDUINO_EVENT_WIFI_STA_CONNECTED:
         //    Serial.println("Connected to access point");
         //    break;
-        //case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
-        //    Serial.println("\nDisconnected. Connecting to the AP again... ");
-        //    //auto reconnect is enabled
-        //    break;
+    case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
+         Serial.println("\nDisconnected. Connecting to the AP again... ");
+         WiFi.reconnect();
+		 //auto reconnect is enabled in startWifi()
+         break;
     case ARDUINO_EVENT_WIFI_STA_GOT_IP:
         Serial.print("\nConnected IP address : ");
         Serial.println(IPAddress(sys_event->event_info.got_ip.ip_info.ip.addr));
         WiFi.setSleep(false);
         //WiFiProv.endProvision();
         //WiFi.removeEvent(TestWifiProv::SysProvEvent);
-        break;
-    case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
-        Serial.println("\nDisconnected. Connecting to the AP again... ");
-        WiFi.reconnect();
         break;
     case ARDUINO_EVENT_PROV_START:
         Serial.println("\nProvisioning started\nGive Credentials of your access point using \" Android app \"");
